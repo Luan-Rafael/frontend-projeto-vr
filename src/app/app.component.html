@@ -1,0 +1,22 @@
+<p>
+  <mat-toolbar>
+
+    <h1>Cursos VR</h1>
+    <span class="example-spacer"></span>
+    <button mat-button routerLinkActive="active" routerLink="/cursos-lista">
+      Cursos
+    </button>
+
+    <button mat-button routerLinkActive="active" routerLink="/usuarios-lista">
+      Alunos
+    </button>
+
+    <button mat-button routerLinkActive="active" routerLink="/matricula-lista">
+      Matrículas
+    </button>
+  </mat-toolbar>
+</p>
+
+<div class='container'>
+  <router-outlet></router-outlet>
+</div>

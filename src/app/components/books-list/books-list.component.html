@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2 class="h2">Cursos</h2>
+    <button mat-button class="btn-primary" color="white" (click)="abrirForm()">Adicionar Curso</button>
+
+  </div>
+
+  <div class="table-responsive" *ngIf="!visualizarForm">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Cód.</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Ementa</th>
+          <th class="text-right"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of courses; let i = index">
+          <th scope="row">{{book.codigo}}</th>
+          <td>{{book.descricao}}</td>
+          <td>{{book.ementa}}</td>
+          <td class="text-right">
+            <button mat-button class="btn-primary mr-1" (click)="this.abrirFormUpdate(book)">Editar</button>
+            <button mat-button class="btn-danger" (click)="this.delete(book.codigo)">Deletar</button>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="visualizarForm" class="row justify-content-center mt-5">
+  <div class="col-md-4">
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Descrição</label>
+        <input class="form-control" type="text" formControlName="descricao" required>
+      </div>
+
+      <div class="form-group">
+        <label>Ementa</label>
+        <input class="form-control" type="text" formControlName="ementa" required>
+      </div>
+
+      <div class="form-group d-flex justify-content-around">
+        <button mat-button class="btn-secondary" (click)="this.visualizarForm = false">Cancelar</button>
+        <button mat-button class="btn-primary" type="submit">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
