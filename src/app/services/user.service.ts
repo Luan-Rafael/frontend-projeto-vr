@@ -3,7 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { User } from '../models/User';
+import { Usuario } from '../models/Usuario';
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +32,7 @@ export class UsersService {
             )
     }
 
-    addUser(data: User): Observable<any> {
+    addUser(data: Usuario): Observable<any> {
 
         return this.httpClient.post(`${this.REST_API}/user`, data)
             .pipe(

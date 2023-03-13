@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Book } from '../models/Book';
+import { Curso } from '../models/Curso';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class CrudService {
   constructor(private httpClient: HttpClient) { }
 
   // Add
-  addCourse(data: Book): Observable<any> {
+  addCourse(data: Curso): Observable<any> {
 
     return this.httpClient.post(`${this.REST_API}/course`, data)
       .pipe(

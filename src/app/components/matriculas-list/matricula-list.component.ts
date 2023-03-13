@@ -1,7 +1,6 @@
 import { Matricula } from './../../models/Matricula';
 import { CrudService } from './../../services/course.service';
 import { MatriculaService } from './../../services/matricula.service';
-import { User } from '../../models/User';
 
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -13,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './matricula-list.component.html',
   styleUrls: ['./matricula-list.component.scss']
 })
-export class MatriculaListComponent implements OnInit {
+export class MatriculasListaComponent implements OnInit {
   users: any = [];
   courses: any = [];
   matriculas: any = []

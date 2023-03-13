@@ -1,4 +1,4 @@
-import { User } from './../../models/user';
+import { Usuario } from '../../models/Usuario';
 
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -8,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss']
+  styleUrls: []
 })
-export class UsersListComponent implements OnInit {
+export class AlunosListaComponent implements OnInit {
   users: any = [];
   userForm: FormGroup;
   visualizarForm: boolean;
@@ -39,7 +39,6 @@ export class UsersListComponent implements OnInit {
     if (codigo) {
       this.userService.updateUsers(codigo, { nome })
         .subscribe(() => {
-          console.log('Data added successfully!')
           this.buscarDados()
           this.visualizarForm = false
 
@@ -62,7 +61,7 @@ export class UsersListComponent implements OnInit {
   abrirForm() {
     this.visualizarForm = true;
   }
-  abrirFormUpdate(user: User) {
+  abrirFormUpdate(user: Usuario) {
     console.log(user)
     this.visualizarForm = true;
 

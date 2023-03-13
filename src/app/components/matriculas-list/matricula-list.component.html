@@ -1,7 +1,8 @@
 <div class="container">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
-    <h2 class="h2">Matrículas</h2>
-    <button mat-button color="btn-primary" (click)="this.abrirForm()">Adicionar Matrícula</button>
+    <h2 class="h2">MATRÍCULAS</h2>
+    <button mat-button style="background-color: var(--primary); color: white;" (click)="this.abrirForm()">Adicionar
+      Matrícula</button>
   </div>
 
   <div *ngIf="!visualizarForm" class="table-responsive">
@@ -21,8 +22,10 @@
           <td>{{matricula.nome_aluno}}</td>
           <td>{{matricula.descricao_curso}}</td>
           <td class="text-right">
-            <button mat-button class="btn-primary mr-1" (click)="this.abrirFormUpdate(matricula)">Editar</button>
-            <button mat-button class="btn-danger" (click)="this.delete(matricula.codigo)">Deletar</button>
+            <button mat-stroked-button class="mr-1" style="color: var(--primary);"
+              (click)="this.abrirFormUpdate(matricula)">Editar</button>
+            <button mat-button style="background-color: var(--primary); color: white;"
+              (click)="this.delete(matricula.codigo)">Deletar</button>
           </td>
         </tr>
       </tbody>
@@ -52,8 +55,10 @@
           </mat-form-field>
         </div>
         <div class="form-group d-flex justify-content-around">
-          <button mat-button class="btn-secondary" (click)="this.visualizarForm = false">Cancelar</button>
-          <button mat-button class="btn-primary" type="submit">Salvar</button>
+          <button mat-stroked-button style="color: var(--primary);"
+            (click)="this.visualizarForm = false">Cancelar</button>
+          <button mat-button style="background-color: var(--primary); color: white;" class="btn-primary"
+            type="submit"  [disabled]="!matriculaForm.valid">Salvar</button>
         </div>
       </form>
     </div>
