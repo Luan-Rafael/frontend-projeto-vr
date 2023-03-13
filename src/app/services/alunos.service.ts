@@ -8,7 +8,7 @@ import { Usuario } from '../models/Usuario';
 @Injectable({
     providedIn: 'root'
 })
-export class UsersService {
+export class AlunosService {
 
     // Node/Express API
     REST_API: string = 'http://localhost:3000/api/v1';
@@ -18,13 +18,13 @@ export class UsersService {
 
     constructor(private httpClient: HttpClient) { }
 
-    async getUsers(): Promise<any> {
+    async retornaAlunos(): Promise<any> {
         const res = await this.httpClient.get(`${this.REST_API}/user`).toPromise();
         console.log(res)
         return res;
     }
 
-    updateUsers(id: string, data: any): Observable<any> {
+    atualizaAluno(id: string, data: any): Observable<any> {
         let API_URL = `${this.REST_API}/user/${id}`;
         return this.httpClient.put(API_URL, data, { headers: this.httpHeaders })
             .pipe(
@@ -32,7 +32,7 @@ export class UsersService {
             )
     }
 
-    addUser(data: Usuario): Observable<any> {
+    adicionaAluno(data: Usuario): Observable<any> {
 
         return this.httpClient.post(`${this.REST_API}/user`, data)
             .pipe(
@@ -53,7 +53,7 @@ export class UsersService {
         return throwError(errorMessage);
     }
 
-    deleteUser(id: string): Observable<any> {
+    deletaAluno(id: string): Observable<any> {
         let API_URL = `${this.REST_API}/user/${id}`;
         return this.httpClient.delete(API_URL, { headers: this.httpHeaders }).pipe(
             catchError(this.handleError)

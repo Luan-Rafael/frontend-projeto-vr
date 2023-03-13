@@ -1,6 +1,6 @@
-import { MatriculasListaComponent } from './components/matriculas-list/matricula-list.component';
+import { MatriculasListaComponent } from './components/matriculas-lista/matriculas-lista.component';
 import { MatButtonModule } from '@angular/material/button';
-import { AlunosListaComponent } from './components/users-list/users-list.component';
+import { AlunosListaComponent } from './components/alunos-lista/alunos-lista.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

@@ -1,16 +1,16 @@
-import { Matricula } from './../../models/Matricula';
-import { CrudService } from './../../services/course.service';
-import { MatriculaService } from './../../services/matricula.service';
+import { Matricula } from '../../models/Matricula';
+import { CursosService } from '../../services/cursos.service';
+import { MatriculaService } from '../../services/matriculas.service';
 
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { UsersService } from '../../services/user.service';
+import { AlunosService } from '../../services/alunos.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'matricula-list',
-  templateUrl: './matricula-list.component.html',
-  styleUrls: ['./matricula-list.component.scss']
+  selector: 'matricula-lista',
+  templateUrl: './matriculas-lista.component.html',
+  styleUrls: ['./matriculas-lista.component.scss']
 })
 export class MatriculasListaComponent implements OnInit {
   users: any = [];
@@ -20,8 +20,8 @@ export class MatriculasListaComponent implements OnInit {
   visualizarForm: boolean;
   constructor(
     public formBuilder: FormBuilder,
-    private userService: UsersService,
-    private courseService: CrudService,
+    private alunosService: AlunosService,
+    private courseService: CursosService,
     private matriculaService: MatriculaService,
   ) {
     this.matriculaForm = this.formBuilder.group({
@@ -32,22 +32,22 @@ export class MatriculasListaComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscarDados();
-    this.obtemUsuario()
+    this.obtemAlunosCursos()
   }
 
   async buscarDados() {
-    this.matriculaService.getMatriculas().then(res => {
+    this.matriculaService.retornaMatriculas().then(res => {
       this.matriculas = res.data
     });
 
 
   }
 
-  async obtemUsuario() {
-    const { data } = await this.userService.getUsers()
+  async obtemAlunosCursos() {
+    const { data } = await this.alunosService.retornaAlunos()
     this.users = data
 
-    const res = await this.courseService.getCourses()
+    const res = await this.courseService.retornaCursos()
     this.courses = res.data
 
     console.log(res.data
@@ -58,7 +58,7 @@ export class MatriculasListaComponent implements OnInit {
     const { codigo, codigo_aluno, codigo_curso } = this.matriculaForm.value;
 
     if (codigo) {
-      this.matriculaService.updateMatricula(codigo, { codigo_aluno, codigo_curso })
+      this.matriculaService.atualizaMatriculas(codigo, { codigo_aluno, codigo_curso })
         .subscribe(() => {
           console.log('Data added successfully!')
           this.buscarDados()
@@ -72,9 +72,8 @@ export class MatriculasListaComponent implements OnInit {
           console.log(err);
         });
     } else {
-      this.matriculaService.addMatricula(this.matriculaForm.value)
+      this.matriculaService.adicionaMatricula(this.matriculaForm.value)
         .subscribe(() => {
-          console.log('Data added successfully!')
           this.buscarDados()
           this.visualizarForm = false
           this.matriculaForm = this.formBuilder.group({
@@ -82,7 +81,7 @@ export class MatriculasListaComponent implements OnInit {
             codigo_curso: ['']
           });
         }, (err) => {
-          console.log(err);
+          alert('Ocorreu um erro na aplicação')
         });
     }
   }
@@ -104,7 +103,7 @@ export class MatriculasListaComponent implements OnInit {
   delete(id: string,) {
     console.log(id);
     if (window.confirm('Deseja realmente deletar?')) {
-      this.matriculaService.deleteMatricula(id).subscribe((res) => {
+      this.matriculaService.deletaMatricula(id).subscribe((res) => {
         this.buscarDados();
 
         this.matriculaForm = this.formBuilder.group({

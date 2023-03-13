@@ -2,12 +2,12 @@ import { Usuario } from '../../models/Usuario';
 
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { UsersService } from './../../services/user.service';
+import { AlunosService } from '../../services/alunos.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'users-list',
-  templateUrl: './users-list.component.html',
+  selector: 'alunos-lista',
+  templateUrl: './alunos-lista.component.html',
   styleUrls: []
 })
 export class AlunosListaComponent implements OnInit {
@@ -16,7 +16,7 @@ export class AlunosListaComponent implements OnInit {
   visualizarForm: boolean;
   constructor(
     public formBuilder: FormBuilder,
-    private userService: UsersService) {
+    private alunosService: AlunosService) {
     this.userForm = this.formBuilder.group({
       nome: [''],
     });
@@ -27,7 +27,7 @@ export class AlunosListaComponent implements OnInit {
   }
 
   async buscarDados() {
-    this.userService.getUsers().then(res => {
+    this.alunosService.retornaAlunos().then(res => {
       this.users = res.data
     });
   }
@@ -37,7 +37,7 @@ export class AlunosListaComponent implements OnInit {
     const { codigo, nome } = this.userForm.value;
 
     if (codigo) {
-      this.userService.updateUsers(codigo, { nome })
+      this.alunosService.atualizaAluno(codigo, { nome })
         .subscribe(() => {
           this.buscarDados()
           this.visualizarForm = false
@@ -46,7 +46,7 @@ export class AlunosListaComponent implements OnInit {
           console.log(err);
         });
     } else {
-      this.userService.addUser(this.userForm.value)
+      this.alunosService.adicionaAluno(this.userForm.value)
         .subscribe(() => {
           console.log('Data added successfully!')
           this.buscarDados()
@@ -76,7 +76,7 @@ export class AlunosListaComponent implements OnInit {
   delete(id: string, i: number) {
     console.log(id);
     if (window.confirm('Deseja realmente deletar?')) {
-      this.userService.deleteUser(id).subscribe((res) => {
+      this.alunosService.deletaAluno(id).subscribe((res) => {
         this.buscarDados()
 
       })

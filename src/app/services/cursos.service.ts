@@ -7,7 +7,7 @@ import { Curso } from '../models/Curso';
 @Injectable({
   providedIn: 'root'
 })
-export class CrudService {
+export class CursosService {
 
   // Node/Express API
   REST_API: string = 'http://localhost:3000/api/v1';
@@ -18,7 +18,7 @@ export class CrudService {
   constructor(private httpClient: HttpClient) { }
 
   // Add
-  addCourse(data: Curso): Observable<any> {
+  adicionaCurso(data: Curso): Observable<any> {
 
     return this.httpClient.post(`${this.REST_API}/course`, data)
       .pipe(
@@ -28,14 +28,14 @@ export class CrudService {
 
 
   // Get all objects
-  async getCourses(): Promise<any> {
+  async retornaCursos(): Promise<any> {
     const res = this.httpClient.get(`${this.REST_API}/course`).toPromise();
     return res;
   }
 
 
   // Get single object
-  GetBook(id: any): Observable<any> {
+  retornaCurso(id: any): Observable<any> {
     let API_URL = `${this.REST_API}/${id}`;
     return this.httpClient.get(API_URL, { headers: this.httpHeaders })
       .pipe(map((res: any) => {
@@ -47,7 +47,7 @@ export class CrudService {
 
 
   // Update
-  updateBook(id: string, data: any): Observable<any> {
+  atualizaCurso(id: string, data: any): Observable<any> {
     let API_URL = `${this.REST_API}/course/${id}`;
     return this.httpClient.put(API_URL, data, { headers: this.httpHeaders })
       .pipe(
@@ -57,7 +57,7 @@ export class CrudService {
 
 
   // Delete
-  deleteBook(id: string): Observable<any> {
+  deletaCurso(id: string): Observable<any> {
     let API_URL = `${this.REST_API}/course/${id}`;
     return this.httpClient.delete(API_URL, { headers: this.httpHeaders }).pipe(
       catchError(this.handleError)

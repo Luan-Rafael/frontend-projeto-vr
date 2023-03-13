@@ -1,9 +1,9 @@
-import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit, NgZone } from '@angular/core';
-import { CrudService } from '../../services/course.service';
+import { Component, OnInit } from '@angular/core';
+import { CursosService } from '../../services/cursos.service';
 import { Validators } from '@angular/forms';
+import { Curso } from 'src/app/models/Curso';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -11,56 +11,54 @@ import { Validators } from '@angular/forms';
   styleUrls: []
 })
 export class CursosListaComponent implements OnInit {
-  courseForm: FormGroup;
 
-  courses: any = [];
-  visualizarForm: boolean;
+  formulario: FormGroup;
+  cursos: Curso[];
+  visualizarFormulario: boolean;
 
-  constructor(private crudService: CrudService,
-    public formBuilder: FormBuilder, private router: Router,
-    private ngZone: NgZone,
+  constructor(private cursosService: CursosService,
+    public formBuilder: FormBuilder
   ) {
-    this.courseForm = this.formBuilder.group({
+    this.formulario = this.formBuilder.group({
       descricao: ['', [Validators.required]],
       ementa: ['', [Validators.required]]
     });
   }
   ngOnInit(): void {
-    this.buscarDados()
-
+    this.buscarDados();
   }
 
   buscarDados() {
-    this.crudService.getCourses().then(res => {
-      this.courses = res.data
+    this.cursosService.retornaCursos().then(res => {
+      this.cursos = res.data
     });
   }
 
 
   delete(id: string, i: number) {
     if (window.confirm('Deseja realmente deletar?')) {
-      this.crudService.deleteBook(id).subscribe((res) => {
+      this.cursosService.deletaCurso(id).subscribe((res) => {
         this.buscarDados()
       })
     }
   }
 
   onSubmit(): any {
-    const { codigo, descricao, ementa } = this.courseForm.value;
+    const { codigo, descricao, ementa } = this.formulario.value;
 
     if (codigo) {
-      this.crudService.updateBook(codigo, { descricao, ementa })
+      this.cursosService.atualizaCurso(codigo, { descricao, ementa })
         .subscribe(() => {
           this.buscarDados()
-          this.visualizarForm = false
+          this.visualizarFormulario = false
         }, (err) => {
           window.alert(err)
         });
     } else {
-      this.crudService.addCourse(this.courseForm.value)
+      this.cursosService.adicionaCurso(this.formulario.value)
         .subscribe(() => {
           this.buscarDados()
-          this.visualizarForm = false
+          this.visualizarFormulario = false
         }, (err) => {
           console.log(err);
         });
@@ -70,14 +68,14 @@ export class CursosListaComponent implements OnInit {
   }
 
   abrirForm() {
-    this.visualizarForm = true;
+    this.visualizarFormulario = true;
   }
 
   abrirFormUpdate(course: any) {
     console.log(course)
-    this.visualizarForm = true;
+    this.visualizarFormulario = true;
 
-    this.courseForm = this.formBuilder.group({
+    this.formulario = this.formBuilder.group({
       codigo: [course.codigo],
       descricao: [course.descricao],
       ementa: [course.ementa]

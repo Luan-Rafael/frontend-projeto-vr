@@ -1,4 +1,4 @@
-import { Matricula } from './../models/Matricula';
+import { Matricula } from '../models/Matricula';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -18,13 +18,13 @@ export class MatriculaService {
 
     constructor(private httpClient: HttpClient) { }
 
-    async getMatriculas(): Promise<any> {
+    async retornaMatriculas(): Promise<any> {
         const res = await this.httpClient.get(`${this.REST_API}/register`).toPromise();
         console.log(res)
         return res;
     }
 
-    updateMatricula(id: string, data: any): Observable<any> {
+    atualizaMatriculas(id: string, data: any): Observable<any> {
         let API_URL = `${this.REST_API}/register/${id}`;
         return this.httpClient.put(API_URL, data, { headers: this.httpHeaders })
             .pipe(
@@ -32,7 +32,7 @@ export class MatriculaService {
             )
     }
 
-    addMatricula(data: Matricula): Observable<any> {
+    adicionaMatricula(data: Matricula): Observable<any> {
 
         return this.httpClient.post(`${this.REST_API}/register`, data)
             .pipe(
@@ -53,7 +53,7 @@ export class MatriculaService {
         return throwError(errorMessage);
     }
 
-    deleteMatricula(id: string): Observable<any> {
+    deletaMatricula(id: string): Observable<any> {
         let API_URL = `${this.REST_API}/register/${id}`;
         return this.httpClient.delete(API_URL, { headers: this.httpHeaders }).pipe(
             catchError(this.handleError)
