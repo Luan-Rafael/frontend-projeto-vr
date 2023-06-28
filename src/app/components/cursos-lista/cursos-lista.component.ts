@@ -68,7 +68,20 @@ export class CursosListaComponent implements OnInit {
   }
 
   abrirForm() {
+    this.formulario = this.formBuilder.group({
+      descricao: [''],
+      ementa: ['']
+    });
     this.visualizarFormulario = true;
+  }
+
+  fecharForm() {
+    this.visualizarFormulario = false;
+
+    this.formulario = this.formBuilder.group({
+      descricao: [''],
+      ementa: ['']
+    });
   }
 
   abrirFormUpdate(course: any) {

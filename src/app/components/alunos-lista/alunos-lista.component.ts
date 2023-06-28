@@ -59,10 +59,15 @@ export class AlunosListaComponent implements OnInit {
   }
 
   abrirForm() {
+    this.userForm = this.formBuilder.group({
+      codigo: [''],
+      nome: [''],
+    });
+    console.log(this.userForm);
+
     this.visualizarForm = true;
   }
   abrirFormUpdate(user: Usuario) {
-    console.log(user)
     this.visualizarForm = true;
 
     this.userForm = this.formBuilder.group({
@@ -72,9 +77,16 @@ export class AlunosListaComponent implements OnInit {
 
   }
 
+  fecharForm() {
+    this.visualizarForm = false;
+
+    this.userForm = this.formBuilder.group({
+      codigo: [''],
+      nome: [''],
+    });
+  }
 
   delete(id: string, i: number) {
-    console.log(id);
     if (window.confirm('Deseja realmente deletar?')) {
       this.alunosService.deletaAluno(id).subscribe((res) => {
         this.buscarDados()

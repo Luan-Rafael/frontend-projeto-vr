@@ -46,7 +46,7 @@
       </div>
 
       <div class="form-group d-flex justify-content-around">
-        <button mat-stroked-button (click)="this.visualizarFormulario = false">Cancelar</button>
+        <button mat-stroked-button (click)="this.fecharForm()">Cancelar</button>
         <button mat-button style="background-color: var(--primary); color: white;" [disabled]="!formulario.valid"
           type="submit">Salvar</button>
       </div>

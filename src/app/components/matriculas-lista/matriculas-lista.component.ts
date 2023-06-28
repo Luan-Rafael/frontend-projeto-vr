@@ -87,7 +87,19 @@ export class MatriculasListaComponent implements OnInit {
   }
 
   abrirForm() {
+    this.matriculaForm = this.formBuilder.group({
+      codigo_aluno: [''],
+      codigo_curso: ['']
+    });
     this.visualizarForm = true;
+  }
+
+  fecharForm() {
+    this.matriculaForm = this.formBuilder.group({
+      codigo_aluno: [''],
+      codigo_curso: ['']
+    });
+    this.visualizarForm = false;
   }
 
   abrirFormUpdate(matricula: Matricula) {
